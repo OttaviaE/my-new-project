@@ -5,13 +5,62 @@ format:
   self-contained: true
   toc: true
   toc-location: body
-lang: de
+lang: en
+bibliography: references.bib
+execute: 
+  eval: true
+  echo: false
+code-annotations: below
 ---
+
+```{r}
+#| include: false
+library(knitr)
+library(ggplot2)
+library(tidyverse)
+```
 
 
 # This is a section
 
+:::: {.columns}
+
+:::{.column width=50%}
+
+```{r}
+#| echo: fenced 
+#| label: mycode
+#| code-fold: true
+#| code-summary: I want to see this code!!!!
+
+head(rock)
+```
+:::
+
+:::{.column width=50%}
+```{r}
+#| echo: true 
+#| label: mycode1
+#| code-fold: true
+#| code-summary: other thing
+#| 
+head(rock)
+```
+:::
+
+::::
+
+I need to cite something @tavakol2011making
+
 ## Quarto
+
+::: {.callout-warning collapse="true"}
+
+## Look at me!!
+
+I collapse (Actually you can't see the callout collapsing, just copy & paste in your file)
+
+:::
 
 Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
@@ -33,3 +82,146 @@ You can add options to executable code like this
 ```
 
 The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+data = read.csv("data/dataset.csv")
+data = mtcars
+# chunk 1 show the code
+head(data)
+
+# chunk 2 do not show the code
+str(data)
+
+# chunk 3 show the fenced code
+summary(data)
+```
+
+
+
+```{r}
+#| include: false
+
+library(ggplot2)
+```
+
+# Linear Models 
+
+This is a Linear Model: 
+
+
+$$y = \beta_0 + \beta_1 X + \varepsilon$$
+```{r}
+#| column: margin
+#| eval: false
+#| echo: true
+#| lst-cap: "Linear Model in R"
+
+y = lm(y ~ x, data = data) 
+```
+
+
+## A new subsection 
+
+
+```{r}
+#| fig-column: margin
+
+kable(head(mtcars))
+
+ggplot(mtcars, 
+       aes(x = qsec, y = drat, size = cyl)) + 
+  geom_point()
+```
+
+
+```{r}
+#| layout-ncol: 2 
+#| warning: false
+#| message: false
+#| label: fig-cars
+#| fig-align: center
+#| out-width: 30%
+#| fig-cap: "The plots"
+#| fig-subcap: 
+#|   - "The scatterplot"
+#|   - "The model"
+
+ggplot(mtcars, 
+       aes(x = qsec, y = drat, size = cyl)) + # a comment
+  geom_point()
+ggplot(mtcars, 
+       aes(x = qsec, y = drat, size = cyl)) + 
+  geom_point() + geom_smooth()
+
+
+```
+
+
+
+```{r}
+#| eval: false
+#| echo: true
+#| lst-label: lst-basicPlot1
+#| lst-cap: Basic use of the plot() function
+
+plot(cars)
+```
+
+@lst-basicPlot1 illustrates a basic use of the function `plot()`
+
+```{r}
+#| label: fig-plotsModels1
+#| echo: false
+#| warning: false
+#| out-width: "60%"
+#| layout-nrow: 2
+#| layout-ncol: 2
+#| fig-cap: "One dataset, different models" 
+#| fig-subcap:
+#|   - "The data"
+#|   - "Polynomial"
+#|   - "Linear Model"
+#|   - "GLM with Poisson" 
+
+
+ggplot(mtcars,
+       aes(mpg, hp, size = gear)) +
+  geom_point()
+
+ggplot(mtcars,
+       aes(mpg, hp, size = gear)) +
+  geom_point() + 
+  geom_smooth()
+
+ggplot(mtcars,
+       aes(mpg, hp, size = gear)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+ggplot(mtcars,
+       aes(mpg, hp, size = gear)) +
+  geom_point() + 
+  geom_smooth(method = "glm", method.args = list(family = "poisson"))
+
+
+```
+
+
+# Annotations
+
+```{r}
+#| echo: true
+# line
+mtcars %>%                               # <1>
+  ggplot( aes(mpg, hp, size = gear)) +   # <1>
+  geom_point() +                         # <2>  
+  geom_smooth(method = "lm")             # <3>
+```
+
+1. Start doing the plot
+2. Points
+3. And look at this!
+
+Now I write some text and this code to find the minumum value of something `r min(mtcars$gear)`
+
+The sample is composed by `r  nrow(data)` subjects with this many variable  `r ncol(data)`
+
