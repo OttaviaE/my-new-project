@@ -1,12 +1,35 @@
 ---
 title: "My new presentation"
 author: "Ottavia"
-format: revealjs
+format: 
+  revealjs: 
+   self-contained: true
+   incremental: true
+   theme:  mycss.scss
+   slide-number: c
+execute: 
+  echo: true
 ---
 
 # Intro
 
+```{r}
+#| include: false
+
+library(tidyverse)
+```
+
+
 ## Quarto
+
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>
+
+. . . 
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>
+
+. . . 
 
 Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
 
@@ -28,3 +51,83 @@ When you click the **Render** button a presentation will be generated that inclu
 # Other section
 
 ## A new slide
+
+
+## Fragment contents 
+
+:::{.r-stack}
+
+:::{.fragment .fade-out}
+
+![](img/pea1.jpg)
+:::
+
+:::{.fragment .fade-in-then-out}
+![](img/pea2.jpg)
+::: 
+
+:::{.fragment .fade-in-then-out}
+![](img/pea3.jpg)
+:::
+
+
+:::
+
+
+## Danny NAdelko 
+
+My blood brother is an immigrant, a beautiful immigrant ^[This song is [Danny Nedelko](https://youtu.be/QkF_G-RF66M?si=F11TuQYUtWVz0L9G) by IDLES]
+
+
+::: aside
+Fear leads to panic, panic leads to pain
+
+Pain leads to anger, anger leads to hate
+
+Yeah, yeah, yeah, yeah, ah, ah, ah, ah
+
+Yeah, yeah, yeah, yeah, ah, ah, ah, ah
+
+[Danny Nedelko](https://youtu.be/QkF_G-RF66M?si=F11TuQYUtWVz0L9G)
+:::
+
+## Code highlight
+
+```{r}
+#| code-line-numbers: "|2|3|"
+mtcars %>%                               
+  ggplot( aes(mpg, hp)) +   
+  geom_point() 
+```
+
+## {auto-animate="true"}
+
+```{r}
+# mycode
+mtcars %>%                               
+  ggplot( aes(mpg, hp)) +   
+  geom_point() 
+```
+
+
+## {auto-animate="true"}
+
+```{r}
+# mycode
+mtcars %>%                               
+  ggplot( aes(mpg, hp)) +   
+  geom_point() +
+  geom_smooth()
+```
+
+## Delayed
+
+```{r}
+#| output-location: slide
+
+mtcars %>%                               
+  ggplot( aes(mpg, hp)) +   
+  geom_point() +
+  geom_smooth()
+```
+
